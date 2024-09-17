@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "+7dK3boL1/ALRhcDTYetfs4s3T0LaOXdRDXOO8xDbGA=",
+  "Source": "rest-api-app",
+  "BasePath": "_content/rest-api-app",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

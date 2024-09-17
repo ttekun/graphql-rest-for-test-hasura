@@ -1,0 +1,16 @@
+version: '3'
+services:
+  rest-api-app:
+    build:
+      context: ./rest-api-app
+      dockerfile: Dockerfile
+    ports:
+      - 5000:80
+    depends_on:
+      - graphql-api-app
+  graphql-api-app:
+    build:
+      context: ./graphql-api-app
+      dockerfile: Dockerfile
+    ports:
+      - 4000:80
