@@ -1,4 +1,4 @@
-# Monorepo
+# GraphQL-Rest-For-Test-Hasura
 
 This monorepo contains two web applications: a REST API app and a GraphQL app.
 

@@ -1,0 +1,37 @@
+# Ignore build outputs
+graphql-api-app/bin/
+rest-api-app/bin/
+rest-api-app/obj/
+
+# Ignore logs
+**/*.log
+
+# Ignore temporary files
+**/*.tmp
+**/*.temp
+**/*.pid
+**/*.seed
+**/*.pid.lock
+
+# Ignore Visual Studio Code settings
+.vscode/
+
+# Ignore NuGet packages
+**/*.nupkg
+**/*.snupkg
+**/.nuget/
+
+# Ignore compiled DLLs
+**/*.dll
+**/*.exe
+**/*.so
+**/*.dylib
+**/*.class
+
+# Ignore coverage reports
+**/coverage/
+**/*.lcov
+
+# Ignore other files
+*.DS_Store
+**/*.DS_Store
