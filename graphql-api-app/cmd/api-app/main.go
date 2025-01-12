@@ -1,14 +1,18 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 
+	"graphql-api-app/internal/resolver"
+
 	"github.com/graphql-go/graphql"
 )
 
+// Product represents a product in the system
 type Product struct {
 	ID           string  `json:"id"`
 	Name         string  `json:"name"`
@@ -17,30 +21,9 @@ type Product struct {
 	Comment      string  `json:"comment"`
 }
 
-var products []Product
-
-func init() {
-	// Initialize dummy products
-	products = []Product{
-		{
-			ID:           "1",
-			Name:         "Product 1",
-			Price:        9.99,
-			Availability: true,
-			Comment:      "This is product 1",
-		},
-		{
-			ID:           "2",
-			Name:         "Product 2",
-			Price:        19.99,
-			Availability: false,
-			Comment:      "This is product 2",
-		},
-	}
-}
-
 func main() {
-	// Define the GraphQL schema
+	resolver := &resolver.Resolver{}
+
 	fields := graphql.Fields{
 		"queryProducts": &graphql.Field{
 			// productsを返す
@@ -56,6 +39,11 @@ func main() {
 			})),
 			Description: "Get the list of products",
 			Resolve: func(params graphql.ResolveParams) (interface{}, error) {
+				// Call the QueryProducts function from resolver.go
+				products, err := resolver.QueryProducts(context.Background())
+				if err != nil {
+					return nil, err
+				}
 				return products, nil
 			},
 		},

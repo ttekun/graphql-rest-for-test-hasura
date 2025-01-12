@@ -1,4 +1,4 @@
-module github.com/your-username/graphql-api-app
+module graphql-api-app
 
 go 1.23
 

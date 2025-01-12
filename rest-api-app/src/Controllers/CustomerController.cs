@@ -33,15 +33,15 @@ namespace rest_api_app.Controllers
         [HttpGet("getCustomerInfo")]
         public IActionResult GetCustomerInfo()
         {
-            return Ok(_customers);
+            return Ok(_customers); // Return the list of customers
         }
     }
 
     public class Customer
     {
-        public string LoginId { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Address { get; set; }
+        public string LoginId { get; set; } // Customer's login ID
+        public string Name { get; set; }     // Customer's name
+        public string Email { get; set; }    // Customer's email
+        public string Address { get; set; }  // Customer's address
     }
 }

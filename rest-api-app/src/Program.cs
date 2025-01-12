@@ -7,14 +7,15 @@ namespace rest_api_app
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().Run(); // Build and run the host
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>(); // Specify the startup class
+                    webBuilder.UseUrls("http://*:8080"); // Set the application URL to port 8080
                 });
     }
 }

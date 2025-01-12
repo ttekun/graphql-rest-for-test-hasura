@@ -8,5 +8,5 @@ RUN go build -o /app/bin/graphql-api-app /app/cmd/api-app/
 FROM alpine:latest
 WORKDIR /root/
 COPY --from=build /app/bin/graphql-api-app .
-EXPOSE 80
-CMD ["./graphql-api-app"]`
+EXPOSE 8080
+CMD ["./graphql-api-app"]
