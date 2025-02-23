@@ -35,3 +35,4 @@ rest-api-app/obj/
 # Ignore other files
 *.DS_Store
 **/*.DS_Store
+.fake
