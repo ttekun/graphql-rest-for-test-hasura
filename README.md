@@ -74,11 +74,11 @@ The GraphQL app is developed using Go.
 ```graphql
 query {
   queryProducts {
-    productId
-    productName
+    id
+    name
     price
     availability
-    introduction
+    comment
   }
 }
 ```
@@ -90,18 +90,18 @@ query {
   "data": {
     "queryProducts": [
       {
-        "productId": "1",
-        "productName": "Product 1",
+        "id": "1",
+        "name": "Product 1",
         "price": 9.99,
         "availability": true,
-        "introduction": "Lorem ipsum dolor sit amet."
+        "comment": "Lorem ipsum dolor sit amet."
       },
       {
-        "productId": "2",
-        "productName": "Product 2",
+        "id": "2",
+        "name": "Product 2",
         "price": 19.99,
         "availability": false,
-        "introduction": "Lorem ipsum dolor sit amet."
+        "comment": "Lorem ipsum dolor sit amet."
       }
     ]
   }
