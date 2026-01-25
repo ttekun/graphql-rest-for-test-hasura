@@ -1,4 +1,4 @@
-# GraphQL-Rest-For-Test-Hasura
+# graphql-gateway-for-rest-and-graphql
 
 This monorepo contains two web applications: a REST API app and a GraphQL app. Both are developed using Go.
 
