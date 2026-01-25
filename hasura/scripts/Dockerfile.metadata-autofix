@@ -1,0 +1,13 @@
+FROM python:3.10-slim
+
+# Install curl (for Hasura metadata API) and cleanup apt cache to keep image small
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install PyYAML once at build time to avoid per-run overhead
+RUN pip install --no-cache-dir pyyaml
+
+WORKDIR /workspace/hasura
+
+ENTRYPOINT ["bash", "-lc"]

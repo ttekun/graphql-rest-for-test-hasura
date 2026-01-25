@@ -1,0 +1,24 @@
+- name: allowed-queries
+  definition:
+    queries:
+      - name: queryProducts
+        query: |
+          query QueryProducts {
+            queryProducts {
+              id
+              name
+              price
+              availability
+              comment
+            }
+          }
+      - name: getCustomerInfo
+        query: |
+          query GetCustomerInfo {
+            getCustomerInfo {
+              loginId
+              name
+              email
+              address
+            }
+          }

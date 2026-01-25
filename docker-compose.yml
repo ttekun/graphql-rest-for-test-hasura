@@ -7,6 +7,12 @@ services:
       - "8080:8080"
     networks:
       - default
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   graphql-api-app:
     build:
@@ -16,6 +22,12 @@ services:
       - "8081:8080"
     networks:
       - default
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/graphql"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   postgres:
     image: postgres:16
@@ -34,17 +46,52 @@ services:
       - default
 
   hasura:
-    image: hasura/graphql-engine:v2.44.1.cli-migrations-v2
+    image: hasura/graphql-engine:v2.44.1.cli-migrations-v3
     ports:
       - "8082:8080"
     depends_on:
       postgres:
         condition: service_healthy
+      graphql-api-app:
+        condition: service_started
+      rest-api-app:
+        condition: service_started
+    volumes:
+      - ./hasura/metadata:/hasura-metadata
+      - ./hasura/migrations:/hasura-migrations
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgresdb
-      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "false"
       HASURA_GRAPHQL_ADMIN_SECRET: "admin-secret"
       HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256","key":"your-256-bit-secret-key-very-long-and-very-secure"}'
+      HASURA_GRAPHQL_ENABLE_ALLOWLIST: "true"
+      HASURA_GRAPHQL_ENABLE_INTROSPECTION: "false"
+      HASURA_GRAPHQL_MIGRATIONS_DIR: /hasura-migrations
+      HASURA_GRAPHQL_METADATA_DIR: /hasura-metadata
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+    networks:
+      - default
+
+  metadata-autofix:
+    build:
+      context: ./hasura/scripts
+      dockerfile: Dockerfile.metadata-autofix
+    image: metadata-autofix:local
+    working_dir: /workspace/hasura
+    command: ["./scripts/metadata-autofix.sh"]
+    environment:
+      HASURA_ENDPOINT: http://hasura:8080
+      HASURA_ADMIN_SECRET: admin-secret
+    depends_on:
+      hasura:
+        condition: service_healthy
+    volumes:
+      - ./hasura:/workspace/hasura
     networks:
       - default
 

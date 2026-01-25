@@ -26,7 +26,7 @@ func main() {
 
 	fields := graphql.Fields{
 		"queryProducts": &graphql.Field{
-			// productsを返す
+			// Return the list of products
 			Type: graphql.NewList(graphql.NewObject(graphql.ObjectConfig{
 				Name: "Product",
 				Fields: graphql.Fields{
@@ -56,11 +56,32 @@ func main() {
 		log.Fatalf("Failed to create GraphQL schema: %v", err)
 	}
 
-	// Define the GraphQL handler
+	// Define the GraphQL handler with enhanced configuration
 	http.HandleFunc("/graphql", func(w http.ResponseWriter, r *http.Request) {
+		// Enable CORS
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		var params struct {
+			Query         string                 `json:"query"`
+			OperationName string                 `json:"operationName"`
+			Variables     map[string]interface{} `json:"variables"`
+		}
+
+		if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
+			// Fallback to URL query for GET requests
+			params.Query = r.URL.Query().Get("query")
+		}
+
 		result := graphql.Do(graphql.Params{
 			Schema:        schema,
-			RequestString: r.URL.Query().Get("query"),
+			RequestString: params.Query,
 		})
 		if len(result.Errors) > 0 {
 			log.Printf("GraphQL query error: %v", result.Errors)

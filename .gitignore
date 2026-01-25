@@ -1,7 +1,9 @@
+# hasura metadata autofix logs
+hasura-replace-payload-*.json
+hasura-replace-response-*.txt
 # Ignore build outputs
 graphql-api-app/bin/
 rest-api-app/bin/
-rest-api-app/obj/
 
 # Ignore logs
 **/*.log
@@ -16,11 +18,6 @@ rest-api-app/obj/
 # Ignore Visual Studio Code settings
 .vscode/
 
-# Ignore NuGet packages
-**/*.nupkg
-**/*.snupkg
-**/.nuget/
-
 # Ignore compiled DLLs
 **/*.dll
 **/*.exe
@@ -34,5 +31,4 @@ rest-api-app/obj/
 
 # Ignore other files
 *.DS_Store
-**/*.DS_Store
 .fake

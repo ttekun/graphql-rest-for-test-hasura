@@ -1,21 +1,18 @@
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
-WORKDIR /app
-EXPOSE 8080
+# Build stage
+FROM golang:1.25.6-alpine AS builder
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
-COPY ["rest-api-app.csproj", "."]
-RUN dotnet restore "./rest-api-app.csproj"
+WORKDIR /app
 COPY . .
-WORKDIR "/src/"
-RUN dotnet build "rest-api-app.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "rest-api-app.csproj" -c Release -o /app/publish
+RUN go mod download
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/bin/rest-api-app ./cmd/api-app
 
-FROM base AS final
+# Final stage
+FROM alpine:3.18
+
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENV ASPNETCORE_URLS=http://+:8080
+COPY --from=builder /app/bin/rest-api-app .
+
 EXPOSE 8080
-ENTRYPOINT ["dotnet", "rest-api-app.dll"]
+
+CMD ["./rest-api-app"]

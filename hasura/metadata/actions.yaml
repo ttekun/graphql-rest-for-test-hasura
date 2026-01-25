@@ -1,0 +1,32 @@
+actions:
+  - name: getCustomerInfo
+    definition:
+      kind: synchronous
+      type: query
+      handler: http://rest-api-app:8080/Customer/getCustomerInfo
+      output_type: "[CustomerOutput!]!"
+      request_transform:
+        method: GET
+
+custom_types:
+  objects:
+    - name: Customer
+      fields:
+        - name: loginId
+          type: String!
+        - name: name
+          type: String!
+        - name: email
+          type: String!
+        - name: address
+          type: String!
+    - name: CustomerOutput
+      fields:
+        - name: loginId
+          type: String!
+        - name: name
+          type: String!
+        - name: email
+          type: String!
+        - name: address
+          type: String!

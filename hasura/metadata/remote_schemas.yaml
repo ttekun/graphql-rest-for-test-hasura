@@ -1,0 +1,5 @@
+- name: graphql_api
+  definition:
+    url: http://graphql-api-app:8080/graphql
+    timeout_seconds: 60
+    forward_client_headers: true
