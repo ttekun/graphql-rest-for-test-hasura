@@ -1,5 +1,12 @@
 # graphql-gateway-for-rest-and-graphql
 
+[![Go](https://img.shields.io/badge/Go-1.25-00ADD8?logo=go&logoColor=white)](https://go.dev/)
+[![Hasura](https://img.shields.io/badge/Hasura-v2.44.1-1EB4D4?logo=hasura&logoColor=white)](https://hasura.io/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Docker Compose](https://img.shields.io/badge/Docker_Compose-ready-2496ED?logo=docker&logoColor=white)](https://docs.docker.com/compose/)
+[![GraphQL](https://img.shields.io/badge/GraphQL-gateway-E10098?logo=graphql&logoColor=white)](https://graphql.org/)
+[![GitHub stars](https://img.shields.io/github/stars/ttekun/graphql-gateway-for-rest-and-graphql?style=social)](https://github.com/ttekun/graphql-gateway-for-rest-and-graphql)
+
 This monorepo contains two web applications: a REST API app and a GraphQL app. Both are developed using Go.
 
 This repository is designed for cases where the frontend communicates **only via GraphQL** while multiple backends exist (GraphQL service + REST service). By wiring the REST backend through Hasura Actions and the GraphQL backend through a Remote Schema, you can expose both through a single GraphQL surface **without rewriting the REST backend into GraphQL**.
